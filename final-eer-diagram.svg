@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4800" height="3000" viewBox="0 0 4800 3000" role="img" aria-labelledby="title desc">
+  <title id="title">Fraud Detection Database - Conceptual EER Diagram</title>
+  <desc id="desc">Chen-style conceptual ER diagram showing entity sets as rectangles, attributes as ellipses, relationship sets as diamonds, underlined primary keys, and minimum-maximum cardinalities.</desc>
+  <style>
+    .title { font: 700 52px Arial, sans-serif; fill: #142b4a; }
+    .subtitle { font: 28px Arial, sans-serif; fill: #334155; }
+    .entity { fill: #d9dcff; stroke: #111827; stroke-width: 5; }
+    .relationship { fill: #c9c7f6; stroke: #111827; stroke-width: 5; }
+    .attribute { fill: #ffffff; stroke: #111827; stroke-width: 4; }
+    .edge { fill: none; stroke: #111827; stroke-width: 5; }
+    .label { font: 700 30px Arial, sans-serif; fill: #111827; text-anchor: middle; dominant-baseline: middle; }
+    .attr { font: 25px Arial, sans-serif; fill: #111827; text-anchor: middle; dominant-baseline: middle; }
+    .card { font: 700 26px Arial, sans-serif; fill: #7c2d12; text-anchor: middle; }
+    .note { font: 25px Arial, sans-serif; fill: #334155; }
+    .pk { text-decoration: underline; font-weight: 700; }
+  </style>
+
+  <text x="2400" y="95" class="title" text-anchor="middle">Fraud Detection Database - Conceptual EER Diagram</text>
+  <text x="2400" y="145" class="subtitle" text-anchor="middle">Fictional, explainable transaction-review prototype</text>
+
+  <!-- Customer, Account, Card and Transaction spine -->
+  <rect x="250" y="780" width="270" height="95" class="entity"/>
+  <text x="385" y="828" class="label">Customer</text>
+  <ellipse cx="195" cy="660" rx="125" ry="42" class="attribute"/><text x="195" y="660" class="attr pk">customer_id</text><path d="M275 760 L225 700" class="edge"/>
+  <ellipse cx="390" cy="635" rx="112" ry="42" class="attribute"/><text x="390" y="635" class="attr">full_name</text><path d="M390 780 L390 677" class="edge"/>
+  <ellipse cx="595" cy="660" rx="90" ry="42" class="attribute"/><text x="595" y="660" class="attr">email</text><path d="M505 760 L530 700" class="edge"/>
+
+  <polygon points="700,827 780,747 860,827 780,907" class="relationship"/>
+  <text x="780" y="827" class="label">Owns</text>
+  <line x1="520" y1="827" x2="700" y2="827" class="edge"/><text x="605" y="810" class="card">0..*</text>
+  <line x1="860" y1="827" x2="1000" y2="827" class="edge"/><text x="930" y="810" class="card">1..1</text>
+
+  <rect x="1000" y="780" width="280" height="95" class="entity"/>
+  <text x="1140" y="828" class="label">Account</text>
+  <ellipse cx="980" cy="660" rx="112" ry="42" class="attribute"/><text x="980" y="660" class="attr pk">account_id</text><path d="M1050 760 L1015 700" class="edge"/>
+  <ellipse cx="1200" cy="645" rx="155" ry="42" class="attribute"/><text x="1200" y="645" class="attr">account_number</text><path d="M1200 780 L1200 687" class="edge"/>
+  <ellipse cx="1000" cy="980" rx="104" ry="42" class="attribute"/><text x="1000" y="980" class="attr">opened_at</text><path d="M1065 875 L1035 940" class="edge"/>
+  <ellipse cx="1240" cy="980" rx="78" ry="42" class="attribute"/><text x="1240" y="980" class="attr">status</text><path d="M1210 875 L1230 938" class="edge"/>
+
+  <polygon points="1400,827 1480,747 1560,827 1480,907" class="relationship"/>
+  <text x="1480" y="827" class="label">Has</text>
+  <line x1="1280" y1="827" x2="1400" y2="827" class="edge"/><text x="1340" y="810" class="card">0..*</text>
+  <line x1="1560" y1="827" x2="1680" y2="827" class="edge"/><text x="1620" y="810" class="card">1..1</text>
+
+  <rect x="1680" y="780" width="250" height="95" class="entity"/>
+  <text x="1805" y="828" class="label">Card</text>
+  <ellipse cx="1650" cy="660" rx="92" ry="42" class="attribute"/><text x="1650" y="660" class="attr pk">card_id</text><path d="M1725 760 L1680 700" class="edge"/>
+  <ellipse cx="1870" cy="650" rx="118" ry="42" class="attribute"/><text x="1870" y="650" class="attr">card_token</text><path d="M1855 780 L1865 692" class="edge"/>
+  <ellipse cx="1690" cy="980" rx="78" ry="42" class="attribute"/><text x="1690" y="980" class="attr">status</text><path d="M1740 875 L1710 940" class="edge"/>
+  <ellipse cx="1910" cy="980" rx="103" ry="42" class="attribute"/><text x="1910" y="980" class="attr">issued_at</text><path d="M1880 875 L1900 938" class="edge"/>
+
+  <polygon points="2040,827 2130,737 2220,827 2130,917" class="relationship"/>
+  <text x="2130" y="812" class="label">Initiates</text>
+  <line x1="1930" y1="827" x2="2040" y2="827" class="edge"/><text x="1985" y="810" class="card">0..*</text>
+  <line x1="2220" y1="827" x2="2370" y2="827" class="edge"/><text x="2300" y="810" class="card">1..1</text>
+
+  <rect x="2370" y="770" width="390" height="115" class="entity"/>
+  <text x="2565" y="827" class="label">PaymentTransaction</text>
+  <ellipse cx="2290" cy="610" rx="130" ry="42" class="attribute"/><text x="2290" y="610" class="attr pk">transaction_id</text><path d="M2410 770 L2330 648" class="edge"/>
+  <ellipse cx="2530" cy="590" rx="112" ry="42" class="attribute"/><text x="2530" y="590" class="attr">request_id</text><path d="M2535 770 L2530 632" class="edge"/>
+  <ellipse cx="2750" cy="620" rx="88" ry="42" class="attribute"/><text x="2750" y="620" class="attr">amount</text><path d="M2700 770 L2732 660" class="edge"/>
+  <ellipse cx="2360" cy="1030" rx="110" ry="42" class="attribute"/><text x="2360" y="1030" class="attr">occurred_at</text><path d="M2425 885 L2380 990" class="edge"/>
+  <ellipse cx="2580" cy="1040" rx="130" ry="42" class="attribute"/><text x="2580" y="1040" class="attr">auth_outcome</text><path d="M2580 885 L2580 998" class="edge"/>
+  <ellipse cx="2800" cy="1030" rx="112" ry="42" class="attribute"/><text x="2800" y="1030" class="attr">recorded_at</text><path d="M2720 885 L2770 990" class="edge"/>
+
+  <!-- Merchant, Device and Location context -->
+  <rect x="3650" y="250" width="275" height="95" class="entity"/><text x="3788" y="298" class="label">Merchant</text>
+  <ellipse cx="3490" cy="150" rx="120" ry="42" class="attribute"/><text x="3490" y="150" class="attr pk">merchant_id</text><path d="M3675 250 L3540 185" class="edge"/>
+  <ellipse cx="3815" cy="130" rx="138" ry="42" class="attribute"/><text x="3815" y="130" class="attr">merchant_name</text><path d="M3810 250 L3815 172" class="edge"/>
+  <ellipse cx="4050" cy="170" rx="105" ry="42" class="attribute"/><text x="4050" y="170" class="attr">category</text><path d="M3915 270 L4000 195" class="edge"/>
+  <ellipse cx="3980" cy="410" rx="120" ry="42" class="attribute"/><text x="3980" y="410" class="attr">merchant_ref</text><path d="M3900 345 L3940 375" class="edge"/>
+  <polygon points="3050,510 3130,430 3210,510 3130,590" class="relationship"/><text x="3130" y="510" class="label">Receives</text>
+  <line x1="2760" y1="790" x2="3050" y2="560" class="edge"/><text x="2915" y="655" class="card">1..1</text>
+  <line x1="3210" y1="510" x2="3650" y2="300" class="edge"/><text x="3400" y="410" class="card">0..*</text>
+
+  <rect x="3650" y="780" width="275" height="95" class="entity"/><text x="3788" y="828" class="label">Device</text>
+  <ellipse cx="3480" cy="670" rx="108" ry="42" class="attribute"/><text x="3480" y="670" class="attr pk">device_id</text><path d="M3650 790 L3540 700" class="edge"/>
+  <ellipse cx="3950" cy="660" rx="152" ry="42" class="attribute"/><text x="3950" y="660" class="attr">device_fingerprint</text><path d="M3890 780 L3930 700" class="edge"/>
+  <ellipse cx="3910" cy="985" rx="110" ry="42" class="attribute"/><text x="3910" y="985" class="attr">first_seen_at</text><path d="M3880 875 L3900 943" class="edge"/>
+  <polygon points="3050,835 3130,755 3210,835 3130,915" class="relationship"/><text x="3130" y="820" class="label">Uses</text>
+  <line x1="2760" y1="827" x2="3050" y2="835" class="edge"/><text x="2905" y="810" class="card">1..1</text>
+  <line x1="3210" y1="835" x2="3650" y2="827" class="edge"/><text x="3435" y="810" class="card">0..*</text>
+
+  <rect x="3650" y="1280" width="275" height="95" class="entity"/><text x="3788" y="1328" class="label">Location</text>
+  <ellipse cx="3480" cy="1170" rx="115" ry="42" class="attribute"/><text x="3480" y="1170" class="attr pk">location_id</text><path d="M3650 1290 L3540 1200" class="edge"/>
+  <ellipse cx="3950" cy="1170" rx="78" ry="42" class="attribute"/><text x="3950" y="1170" class="attr">city</text><path d="M3900 1280 L3930 1210" class="edge"/>
+  <ellipse cx="3990" cy="1485" rx="126" ry="42" class="attribute"/><text x="3990" y="1485" class="attr">country_code</text><path d="M3900 1375 L3960 1445" class="edge"/>
+  <polygon points="3050,1195 3130,1115 3210,1195 3130,1275" class="relationship"/><text x="3130" y="1180" class="label">OccursIn</text>
+  <line x1="2730" y1="885" x2="3050" y2="1195" class="edge"/><text x="2890" y="1040" class="card">1..1</text>
+  <line x1="3210" y1="1195" x2="3650" y2="1327" class="edge"/><text x="3430" y="1250" class="card">0..*</text>
+
+  <!-- Assessment and rules -->
+  <polygon points="2485,1270 2570,1185 2655,1270 2570,1355" class="relationship"/><text x="2570" y="1255" class="label">AssessedBy</text>
+  <line x1="2565" y1="885" x2="2570" y2="1185" class="edge"/><text x="2600" y="1060" class="card">1..1</text>
+  <line x1="2570" y1="1355" x2="2570" y2="1510" class="edge"/><text x="2600" y="1450" class="card">1..1</text>
+
+  <rect x="2370" y="1510" width="400" height="100" class="entity"/><text x="2570" y="1560" class="label">RiskAssessment</text>
+  <ellipse cx="2260" cy="1410" rx="132" ry="42" class="attribute"/><text x="2260" y="1410" class="attr pk">assessment_id</text><path d="M2420 1510 L2310 1445" class="edge"/>
+  <ellipse cx="2390" cy="1725" rx="76" ry="42" class="attribute"/><text x="2390" y="1725" class="attr">score</text><path d="M2445 1610 L2410 1685" class="edge"/>
+  <ellipse cx="2610" cy="1735" rx="110" ry="42" class="attribute"/><text x="2610" y="1735" class="attr">risk_level</text><path d="M2610 1610 L2610 1693" class="edge"/>
+  <ellipse cx="2835" cy="1725" rx="110" ry="42" class="attribute"/><text x="2835" y="1725" class="attr">assessed_at</text><path d="M2700 1610 L2790 1690" class="edge"/>
+  <ellipse cx="2820" cy="1430" rx="138" ry="42" class="attribute"/><text x="2820" y="1430" class="attr">rule_set_version</text><path d="M2700 1510 L2780 1462" class="edge"/>
+
+  <rect x="770" y="1570" width="300" height="100" class="entity"/><text x="920" y="1620" class="label">FraudRule</text>
+  <ellipse cx="650" cy="1450" rx="102" ry="42" class="attribute"/><text x="650" y="1450" class="attr pk">rule_id</text><path d="M800 1570 L700 1480" class="edge"/>
+  <ellipse cx="990" cy="1450" rx="100" ry="42" class="attribute"/><text x="990" y="1450" class="attr">rule_code</text><path d="M1015 1570 L1000 1490" class="edge"/>
+  <ellipse cx="650" cy="1785" rx="80" ry="42" class="attribute"/><text x="650" y="1785" class="attr">title</text><path d="M805 1670 L700 1755" class="edge"/>
+  <ellipse cx="920" cy="1805" rx="145" ry="42" class="attribute"/><text x="920" y="1805" class="attr">threshold_config</text><path d="M920 1670 L920 1763" class="edge"/>
+  <ellipse cx="1220" cy="1795" rx="135" ry="42" class="attribute"/><text x="1220" y="1795" class="attr">severity_weight</text><path d="M1040 1670 L1170 1760" class="edge"/>
+  <ellipse cx="1200" cy="1480" rx="78" ry="42" class="attribute"/><text x="1200" y="1480" class="attr">active</text><path d="M1050 1570 L1150 1510" class="edge"/>
+
+  <polygon points="1600,1600 1700,1500 1800,1600 1700,1700" class="relationship"/><text x="1700" y="1585" class="label">Matches</text>
+  <line x1="1070" y1="1620" x2="1600" y2="1600" class="edge"/><text x="1335" y="1580" class="card">0..*</text>
+  <line x1="1800" y1="1600" x2="2370" y2="1560" class="edge"/><text x="2085" y="1540" class="card">0..*</text>
+  <ellipse cx="1650" cy="1815" rx="132" ry="42" class="attribute"/><text x="1650" y="1815" class="attr">observed_value</text><path d="M1680 1700 L1660 1773" class="edge"/>
+  <ellipse cx="1900" cy="1815" rx="110" ry="42" class="attribute"/><text x="1900" y="1815" class="attr">explanation</text><path d="M1740 1700 L1850 1780" class="edge"/>
+
+  <!-- Alerts, analyst assignment and review history -->
+  <polygon points="2920,1560 3010,1470 3100,1560 3010,1650" class="relationship"/><text x="3010" y="1545" class="label">Generates</text>
+  <line x1="2770" y1="1560" x2="2920" y2="1560" class="edge"/><text x="2845" y="1540" class="card">0..1</text>
+  <line x1="3100" y1="1560" x2="3260" y2="1560" class="edge"/><text x="3180" y="1540" class="card">1..1</text>
+
+  <rect x="3260" y="1510" width="320" height="100" class="entity"/><text x="3420" y="1560" class="label">FraudAlert</text>
+  <ellipse cx="3230" cy="1390" rx="105" ry="42" class="attribute"/><text x="3230" y="1390" class="attr pk">alert_id</text><path d="M3300 1510 L3260 1430" class="edge"/>
+  <ellipse cx="3500" cy="1390" rx="78" ry="42" class="attribute"/><text x="3500" y="1390" class="attr">status</text><path d="M3490 1510 L3500 1432" class="edge"/>
+  <ellipse cx="3230" cy="1730" rx="110" ry="42" class="attribute"/><text x="3230" y="1730" class="attr">created_at</text><path d="M3310 1610 L3260 1690" class="edge"/>
+  <ellipse cx="3470" cy="1740" rx="118" ry="42" class="attribute"/><text x="3470" y="1740" class="attr">reviewed_at</text><path d="M3460 1610 L3470 1698" class="edge"/>
+  <ellipse cx="3650" cy="1300" rx="118" ry="42" class="attribute"/><text x="3650" y="1300" class="attr">analyst_note</text><path d="M3550 1510 L3610 1335" class="edge"/>
+
+  <polygon points="3790,1640 3870,1560 3950,1640 3870,1720" class="relationship"/><text x="3870" y="1625" class="label">AssignedTo</text>
+  <line x1="3580" y1="1560" x2="3790" y2="1640" class="edge"/><text x="3690" y="1580" class="card">0..1</text>
+  <line x1="3950" y1="1640" x2="4080" y2="1740" class="edge"/><text x="4015" y="1680" class="card">0..*</text>
+
+  <rect x="4080" y="1690" width="280" height="100" class="entity"/><text x="4220" y="1740" class="label">Analyst</text>
+  <ellipse cx="4060" cy="1570" rx="112" ry="42" class="attribute"/><text x="4060" y="1570" class="attr pk">analyst_id</text><path d="M4110 1690 L4085 1610" class="edge"/>
+  <ellipse cx="4380" cy="1570" rx="128" ry="42" class="attribute"/><text x="4380" y="1570" class="attr">display_name</text><path d="M4330 1690 L4350 1610" class="edge"/>
+  <ellipse cx="4090" cy="1910" rx="80" ry="42" class="attribute"/><text x="4090" y="1910" class="attr">email</text><path d="M4130 1790 L4110 1868" class="edge"/>
+  <ellipse cx="4350" cy="1910" rx="78" ry="42" class="attribute"/><text x="4350" y="1910" class="attr">active</text><path d="M4310 1790 L4330 1868" class="edge"/>
+
+  <polygon points="3330,2050 3420,1960 3510,2050 3420,2140" class="relationship"/><text x="3420" y="2035" class="label">HasReview</text>
+  <line x1="3420" y1="1610" x2="3420" y2="1960" class="edge"/><text x="3450" y="1870" class="card">0..*</text>
+  <line x1="3420" y1="2140" x2="3420" y2="2260" class="edge"/><text x="3450" y="2210" class="card">1..1</text>
+
+  <rect x="3200" y="2260" width="400" height="100" class="entity"/><text x="3400" y="2310" class="label">AlertReview</text>
+  <ellipse cx="3070" cy="2150" rx="118" ry="42" class="attribute"/><text x="3070" y="2150" class="attr pk">review_id</text><path d="M3250 2260 L3120 2185" class="edge"/>
+  <ellipse cx="3120" cy="2475" rx="110" ry="42" class="attribute"/><text x="3120" y="2475" class="attr">changed_at</text><path d="M3260 2360 L3160 2440" class="edge"/>
+  <ellipse cx="3380" cy="2500" rx="118" ry="42" class="attribute"/><text x="3380" y="2500" class="attr">old_status</text><path d="M3380 2360 L3380 2458" class="edge"/>
+  <ellipse cx="3640" cy="2475" rx="125" ry="42" class="attribute"/><text x="3640" y="2475" class="attr">new_status</text><path d="M3540 2360 L3600 2440" class="edge"/>
+  <ellipse cx="3730" cy="2160" rx="75" ry="42" class="attribute"/><text x="3730" y="2160" class="attr">note</text><path d="M3560 2260 L3680 2195" class="edge"/>
+
+  <polygon points="3820,2180 3900,2100 3980,2180 3900,2260" class="relationship"/><text x="3900" y="2165" class="label">Performs</text>
+  <line x1="4080" y1="1780" x2="3980" y2="2180" class="edge"/><text x="4045" y="2010" class="card">0..*</text>
+  <line x1="3820" y1="2180" x2="3600" y2="2310" class="edge"/><text x="3710" y="2250" class="card">1..1</text>
+
+  <!-- Legend -->
+  <rect x="190" y="2710" width="4420" height="190" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <rect x="300" y="2760" width="130" height="55" class="entity"/><text x="365" y="2848" class="note" text-anchor="middle">entity set</text>
+  <ellipse cx="920" cy="2787" rx="88" ry="33" class="attribute"/><text x="920" y="2848" class="note" text-anchor="middle">attribute</text>
+  <polygon points="1380,2787 1425,2742 1470,2787 1425,2832" class="relationship"/><text x="1425" y="2848" class="note" text-anchor="middle">relationship set</text>
+  <text x="1930" y="2795" class="attr pk">underlined attribute</text><text x="1930" y="2848" class="note" text-anchor="middle">primary key</text>
+  <text x="2900" y="2795" class="card">min..max</text><text x="2900" y="2848" class="note" text-anchor="middle">participation/cardinality</text>
+  <text x="3900" y="2805" class="note" text-anchor="middle">No foreign keys, data types or relationship keys are shown:</text>
+  <text x="3900" y="2850" class="note" text-anchor="middle">this is the conceptual EER model, not the relational schema.</text>
+</svg>

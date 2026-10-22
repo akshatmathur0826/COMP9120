@@ -1,0 +1,94 @@
+%% Fraud Detection Database - conceptual ERD source
+%% Render in a Mermaid-compatible editor. Before submitting, redraw in the exact
+%% lecture notation required by the COMP9120 tutor, preserving cardinalities and
+%% mandatory/optional participation shown here.
+erDiagram
+    CUSTOMER ||--o{ ACCOUNT : owns
+    ACCOUNT ||--o{ CARD : has
+    CARD ||--o{ PAYMENT_TRANSACTION : initiates
+    MERCHANT ||--o{ PAYMENT_TRANSACTION : receives
+    DEVICE ||--o{ PAYMENT_TRANSACTION : used_for
+    LOCATION ||--o{ PAYMENT_TRANSACTION : describes
+    PAYMENT_TRANSACTION ||--|| RISK_ASSESSMENT : receives
+    RISK_ASSESSMENT ||--o{ RULE_MATCH : has
+    FRAUD_RULE ||--o{ RULE_MATCH : explains
+    RISK_ASSESSMENT ||--o| FRAUD_ALERT : creates
+    ANALYST o|--o{ FRAUD_ALERT : assigned_to
+    FRAUD_ALERT ||--o{ ALERT_REVIEW : records
+    ANALYST ||--o{ ALERT_REVIEW : performs
+
+    CUSTOMER {
+        bigint customer_id PK
+        string full_name
+        string email UK
+    }
+    ACCOUNT {
+        bigint account_id PK
+        bigint customer_id FK
+        string account_number UK
+        string status
+    }
+    CARD {
+        bigint card_id PK
+        bigint account_id FK
+        string card_token UK
+        string status
+    }
+    MERCHANT {
+        bigint merchant_id PK
+        string merchant_name
+        string category
+    }
+    DEVICE {
+        bigint device_id PK
+        string device_fingerprint UK
+    }
+    LOCATION {
+        bigint location_id PK
+        string city
+        string country_code
+    }
+    PAYMENT_TRANSACTION {
+        bigint transaction_id PK
+        string request_id UK
+        decimal amount
+        datetime occurred_at
+        string auth_outcome
+    }
+    FRAUD_RULE {
+        bigint rule_id PK
+        string rule_code UK
+        int severity_weight
+        boolean active
+    }
+    RISK_ASSESSMENT {
+        bigint assessment_id PK
+        bigint transaction_id FK_UK
+        int score
+        string risk_level
+    }
+    RULE_MATCH {
+        bigint assessment_id PK_FK
+        bigint rule_id PK_FK
+        decimal observed_value
+        string explanation
+    }
+    FRAUD_ALERT {
+        bigint alert_id PK
+        bigint assessment_id FK_UK
+        bigint assigned_analyst_id FK
+        string status
+    }
+    ANALYST {
+        bigint analyst_id PK
+        string display_name
+        string email UK
+    }
+    ALERT_REVIEW {
+        bigint review_id PK
+        bigint alert_id FK
+        bigint changed_by_analyst_id FK
+        string old_status
+        string new_status
+    }
+
