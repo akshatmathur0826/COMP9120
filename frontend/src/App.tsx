@@ -5,6 +5,7 @@ import { AlertDetailPage } from './pages/AlertDetailPage';
 import { AlertsPage } from './pages/AlertsPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { SimulatePage } from './pages/SimulatePage';
+import { TransactionDemoPage } from './pages/TransactionDemoPage';
 import { TransactionDetailPage } from './pages/TransactionDetailPage';
 import { TransactionsPage } from './pages/TransactionsPage';
 
@@ -18,6 +19,7 @@ export function App() {
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="transactions/:id" element={<TransactionDetailPage />} />
         <Route path="simulate" element={<SimulatePage />} />
+        <Route path="demo" element={<TransactionDemoPage />} />
         <Route
           path="*"
           element={

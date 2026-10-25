@@ -56,7 +56,7 @@ ROLLBACK;
 
 ## Service-level transaction tests
 
-These tests belong in Spring Boot integration tests because they span history queries, rule evaluation, and multiple writes. The database constraints still provide a second line of defence.
+These are implemented as Spring Boot integration tests in `backend/src/test/java/com/frauddetection/TransactionIntegrityTests.java` (14 tests; run instructions in the README). The database constraints still provide a second line of defence.
 
 | ID | Scenario | Pass condition |
 |---|---|---|
@@ -69,7 +69,25 @@ These tests belong in Spring Boot integration tests because they span history qu
 | T7 | Submit two same-card attempts concurrently | `SELECT ... FOR UPDATE` on the card serialises history reads; velocity evaluation is deterministic. |
 | T8 | Attempt invalid review transitions | The service rejects transitions outside OPEN -> INVESTIGATING/DISMISSED and INVESTIGATING -> RESOLVED/DISMISSED; terminal transitions carry a note and write `ALERT_REVIEW`. |
 
-## Execution note
+How each test proves its pass condition:
 
-The local PostgreSQL server was discovered but requires credentials not available to this workspace, so execute the scripts in the team's own development database before recording screenshots. The scripts have been cross-checked for references and deterministic seed expectations, but successful local execution remains the final validation step.
+| ID | Test method | Notes |
+|---|---|---|
+| T1 | `normalTransaction` | Checks the assessment, rule-match and alert row counts directly. |
+| T2 | `largeAmountBoundary` | AUD 4,999.99 does not match; AUD 5,000.00 matches R1 only, because Chloe has fewer than five earlier approvals (no R2). |
+| T3 | `newDeviceLargeAmount` | Also `newDeviceBoundary`: R4 at AUD 1,000.00 but not 999.99. |
+| T4 | `velocityBoundary`, `velocityWindowEdge` | Fifth attempt matches. The window is inclusive at exactly 10:00 and excludes the first attempt at 10:01. `repeatedDeclines` covers R5. |
+| T5 | `forcedAlertFailureRollsBackEverything` | A test-only trigger makes the alert insert fail. Transaction, assessment, match and alert counts are unchanged, and the same request succeeds once the fault is removed. `reviewAuditFailureRollsBackStatus` does the same for the review transaction. |
+| T6 | `duplicateRequestId` | The second submission is rejected and the row count is unchanged. |
+| T7 | `concurrentSameCardIntakeIsSerialised` | Six simultaneous attempts on one card at the same instant; exactly attempts 5 and 6 match R3. A test-only trigger pauses each intake after its insert so the race is real. With the `FOR UPDATE` card lock removed, this test fails with zero R3 matches. |
+| T8 | `alertReviewTransitions` | Invalid transitions, the missing-note rule, audit rows and terminal states. |
+| - | `blockedCardRejected`, `databaseConstraints` | Card status check, and CHECK/FK constraints enforced even when the service is bypassed. |
+
+`transaction-demo.sql` and the two `concurrency-demo-session-*.sql` scripts show the same behaviour interactively in `psql` for the report and video.
+
+## Large dataset checks (`seed-large.sql`)
+
+- All eight queries in `queries.sql` return non-empty results. For example, Q1 finds 32 accounts with repeated alerts, Q3 finds 124 transactions above their card's history, and Q7 spreads the workload across five analysts.
+- Every transaction has exactly one assessment; an alert exists if and only if the score is at least 30; every score equals the sum of its matched rule weights.
+- Re-evaluating all 5 rules for all 6,378 transactions in SQL (the same logic as Part 1 of `transaction-demo.sql`) agrees with the stored rule matches in all 31,890 checks.
 

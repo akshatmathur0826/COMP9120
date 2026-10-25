@@ -7,6 +7,7 @@ const NAV = [
   { to: '/alerts', label: 'Alert queue' },
   { to: '/transactions', label: 'Transactions' },
   { to: '/simulate', label: 'Simulate transaction' },
+  { to: '/demo', label: 'Transaction demo' },
 ];
 
 export function Layout() {

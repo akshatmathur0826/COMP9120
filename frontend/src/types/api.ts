@@ -174,3 +174,34 @@ export interface ApiErrorBody {
   message: string;
   errors?: Record<string, string>;
 }
+
+// Transaction demo page (/api/demo)
+export interface TableCounts {
+  transactions: number;
+  assessments: number;
+  ruleMatches: number;
+  alerts: number;
+}
+
+export interface ForcedRollbackResult {
+  requestId: string;
+  cardId: number;
+  failureMessage: string;
+  before: TableCounts;
+  after: TableCounts;
+  requestStored: boolean;
+}
+
+export interface HeldLockResult {
+  submission: TransactionSubmissionResponse;
+  lockWaitMillis: number;
+  totalMillis: number;
+  lockAcquiredAt: string;
+}
+
+export interface RecentAttempts {
+  cardId: number;
+  windowSeconds: number;
+  minimumEventCount: number;
+  attempts: number;
+}

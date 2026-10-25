@@ -5,7 +5,11 @@ import type {
   ApiErrorBody,
   CreateTransactionRequest,
   Dashboard,
+  ForcedRollbackResult,
+  HeldLockResult,
+  RecentAttempts,
   ReferenceData,
+  TableCounts,
   TransactionDetail,
   TransactionSubmissionResponse,
   TransactionSummary,
@@ -71,6 +75,16 @@ export const api = {
       method: 'PATCH',
       body: JSON.stringify(body),
     }),
+
+  demoCounts: () => request<TableCounts>('/demo/counts'),
+  forcedRollback: (cardId: number) =>
+    request<ForcedRollbackResult>(`/demo/forced-rollback?cardId=${cardId}`, { method: 'POST' }),
+  heldLockIntake: (body: CreateTransactionRequest, holdMillis: number) =>
+    request<HeldLockResult>(`/demo/held-lock-intake?holdMillis=${holdMillis}`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  recentAttempts: (cardId: number) => request<RecentAttempts>(`/demo/cards/${cardId}/recent-attempts`),
 
   dbCheck: () => request<{ status: string; customers: number; transactions: number }>('/db-check'),
 };
